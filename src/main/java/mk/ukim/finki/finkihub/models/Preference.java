@@ -1,8 +1,12 @@
 package mk.ukim.finki.finkihub.models;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class Preference {
+
     private Integer ID;
 
     private String name;

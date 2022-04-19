@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class Course {
 
-    private Integer code;
+    private String code;
 
     private Integer year;
 
@@ -23,7 +23,7 @@ public class Course {
 
     public Course() {}
 
-    public Course(Integer code, Integer year, Boolean mandatory, Review review, List<StudyMaterial> materialsForCourse, List<Preference> preferences, List<Professor> professorsInCourse) {
+    public Course(String code, Integer year, Boolean mandatory, Review review, List<StudyMaterial> materialsForCourse, List<Preference> preferences, List<Professor> professorsInCourse) {
         this.code = code;
         this.year = year;
         this.mandatory = mandatory;

@@ -1,10 +1,13 @@
 package mk.ukim.finki.finkihub.models;
 
 import lombok.Data;
+import javax.persistence.*;
 
+@Entity
 @Data
 public class Student {
 
+    @Id
     private Integer index;
 
     private String name;
@@ -13,8 +16,10 @@ public class Student {
 
     private String password;
 
+    @ManyToOne
     private Preference preference;
 
+    @ManyToOne
     private Program program;
 
     public Student() {}

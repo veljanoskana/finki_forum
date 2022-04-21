@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 @Getter
 public class DataHolder {
-    public List<Student> students = new ArrayList<>();
+    public static List<Student> students = new ArrayList<>();
     public List<Preference> preferences = new ArrayList<>();
     public List<Course> courses = new ArrayList<>();
     public List<Program> programs = new ArrayList<>();
@@ -23,6 +23,15 @@ public class DataHolder {
 
     @PostConstruct
     public void init() {
+//        GENERATING PROGRAMS
+        programs.add(new Program(1, "SEIS", courses));
+
+//        GENERATING PREFERENCES
+        preferences.add(new Preference(1, "Fullstack", courses));
+
+//        GENERATING STUDENT.
+        students.add(new Student(191005, "Ana", "Veljanoska", "123", preferences.get(0), programs.get(0)));
+
 //        GENERATING REVIEW
         comments.add(new Comment(1, students.get(0), LocalDateTime.now(), "some comment"));
         List<String> pros = new ArrayList<>();
@@ -34,16 +43,8 @@ public class DataHolder {
 //        GENERATING PROFESSOR
         professors.add(new Professor(1, "Sasho", "Gramatikov", "#"));
 
-//        GENERATING PREFERENCE
-        preferences.add(new Preference(1, "Fullstack", courses));
-
-//        GENERATING PROGRAM
-        programs.add(new Program(1, "SEIS", courses));
-
 //        GENERATING COURSE
         courses.add(new Course("xxx", 3, true, reviews.get(0), null, preferences, professors));
 
-//        GENERATING STUDENT
-        students.add(new Student(191005, "Ana", "Veljanoska", preferences.get(0), programs.get(0)));
     }
 }

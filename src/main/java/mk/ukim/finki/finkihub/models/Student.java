@@ -11,17 +11,20 @@ public class Student {
 
     private String surname;
 
+    private String password;
+
     private Preference preference;
 
     private Program program;
 
     public Student() {}
 
-    public Student(Integer index, String name, String surname, Preference preference, Program program) {
+    public Student(Integer index, String name, String surname, String password, Preference preference, Program program) {
         this.index = index;
         this.name = name;
         this.surname = surname;
         this.preference = preference;
+        this.password = password;
         this.program = program;
     }
 }

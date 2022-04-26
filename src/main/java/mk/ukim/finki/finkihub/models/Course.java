@@ -11,21 +11,21 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String code;
+    private Integer ID;
+
+    private String name;
 
     private Integer year;
-
-    private Boolean mandatory;
 
     @OneToMany
     private List<Comment> comments;
 
     public Course() {}
 
-    public Course(String code, Integer year, Boolean mandatory, List<Comment> comments) {
-        this.code = code;
+    public Course(Integer ID, String name, Integer year, List<Comment> comments) {
+        this.ID = ID;
+        this.name = name;
         this.year = year;
-        this.mandatory = mandatory;
         this.comments = comments;
     }
 }

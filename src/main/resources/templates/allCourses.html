@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>FINKIForum</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-expand-lg bg-light navbar-light">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="container d-flex justify-content-center">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <a class="navbar-brand" href="#"
+                    ><img
+                            id="finki-logo"
+                            src="https://finki.ukim.mk/sites/default/files/logo_10.png"
+                            alt="FINKI Logo"
+                            draggable="false"
+                            height="80"
+                    /></a>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav align-items-center mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 btn btn-outline-primary" href="#!"><i
+                                        class="fas fa-plus-circle pe-2"></i>Сите предмети</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 btn btn-outline-secondary" href="#!"><i
+                                        class="fas fa-bell pe-2"></i>Филтрирај</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 btn btn-outline-info" href="#!"><i
+                                        class="fas fa-heart pe-2"></i>Мои предмети</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div>
+    <div class="container mb-4">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="container">
+                    <section id="services" class="services section-bg">
+                        <div class="container">
+                            <div class="row">
+                                <div th:each="course : ${courses}" class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 m4-md-0">
+                                    <div class="card">
+                                        <div class="card-header h4" th:text="${course.getName()}">
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted">Коментари(<span th:text="${course.getComments().size()}"></span>)</h6>
+                                            <p class="card-text">
+                                                Година: <i th:text="${course.getYear()}"></i>
+                                                Професори: <i>ДОДАЈ ПРОФЕСОРИ ЗА КУРС</i>
+                                            </p>
+                                            <a class="card-link btn-sm btn-primary text-white">Детали</a>
+                                            <a class="card-link btn-sm btn-secondary text-white">Додади предмет</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+
+</footer>
+</body>
+</html>

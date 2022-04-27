@@ -1,4 +1,5 @@
 package mk.ukim.finki.finkihub.web;
+import mk.ukim.finki.finkihub.models.Comment;
 import mk.ukim.finki.finkihub.models.Course;
 import mk.ukim.finki.finkihub.service.CourseService;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,8 @@ public class CourseController {
     public String detailCoursePage(@PathVariable Integer id,
                                    Model model){
         Course course = this.courseService.findById(id).get();
+        List<Comment> commentsForCourse = course.getComments();
+        model.addAttribute("comments", commentsForCourse);
         model.addAttribute("course", course);
         model.addAttribute("bodyContent", "courseDetails");
         return "master-template";

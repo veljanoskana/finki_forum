@@ -32,4 +32,8 @@ public class Student {
         this.password = password;
         this.program = program;
     }
+
+    public String getFullName(){
+        return this.name + " " + this.surname;
+    }
 }

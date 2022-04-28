@@ -34,5 +34,5 @@ public class RegisterController {
         model.addAttribute("programs", programs);
         return "register";
     }
-    
+
 }

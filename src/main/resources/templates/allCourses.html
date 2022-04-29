@@ -27,7 +27,7 @@
                                     <div class="card-footer">
                                         <div class="row">
                                             <a class="card-link btn-sm btn-primary text-white text-center col-3"
-                                               th:href="@{'/courses/details/id' (id=${course.getID()})}">Детали</a>
+                                               th:href="@{'/courses/details/{id}' (id=${course.getID()})}">Детали</a>
                                             <form th:method="POST"
                                                   th:action="@{'/personal/add-course/{id}' (id=${course.getID()})}" class="col" >
                                                 <button type="submit" class="card-link btn-sm btn-secondary text-white">

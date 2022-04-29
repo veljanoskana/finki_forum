@@ -39,17 +39,16 @@
                         </div>
                     </div>
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                        <form action="/comments/add" method="POST">
+                        <form>
                             <div class="d-flex flex-start w-100">
                                 <div class="form-outline w-100">
-                                    <span name="course" th:value="${course}"></span>
                                     <label for="commentBody" style="display: none"></label>
                                     <textarea id="commentBody" name="commentBody" class="form-control"
                                               rows="4" style="background: #fff;" placeholder="Напиши коментар..."></textarea>
                                 </div>
                             </div>
                             <div class="float-right mt-2 pt-1">
-                                <button type="submit" class="btn btn-primary btn-sm">Постави</button>
+                                <button class="btn btn-primary btn-sm">Постави</button>
                             </div>
                         </form>
                     </div>

@@ -1,39 +1,45 @@
 <div class="container mb-4">
-  <div class="row">
-    <div class="table-responsive">
-      <div class="container">
-        <section id="services" class="services section-bg">
-          <div class="container">
-            <div class="row">
-              <div th:each="course : ${courses}"
-                   class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 m4-md-0">
-                <div class="card">
-                  <div class="card-header h4" th:text="${course.getName()}">
-                  </div>
-                  <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Коментари(<span
-                            th:text="${course.getComments().size()}"></span>)</h6>
-                    <p class="card-text">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Година: <i th:text="${course.getYear()}"></i>
-                      </li>
-                      <li class="list-group-item">Професори: <i>ДОДАЈ ПРОФЕСОРИ ЗА КУРС</i></li>
-                    </ul>
-                    </p>
-                    <a class="card-link btn-sm btn-primary text-white">Детали</a>
-                    <form th:method="POST"
-                          th:action="@{'/personal/delete-course/{id}' (id=${course.getID()})}" class="col" >
-                      <button type="submit" class="card-link btn-sm btn-danger text-white">
-                        Избриши предмет
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
+    <div class="row">
+        <div class="table-responsive">
+            <div class="container">
+                <section id="services" class="services section-bg">
+                    <div class="container">
+                        <div class="row">
+                            <div th:each="course : ${courses}"
+                                 class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 m4-md-0">
+                                <div class="card">
+                                    <div class="card-header h4" th:text="${course.getName()}">
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Коментари(<span
+                                                th:text="${course.getComments().size()}"></span>)</h6>
+                                        <p class="card-text">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Година: <i th:text="${course.getYear()}"></i>
+                                            </li>
+                                            <li class="list-group-item">Професори: <i>ДОДАЈ ПРОФЕСОРИ ЗА КУРС</i></li>
+                                        </ul>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <a class="card-link btn-sm btn-primary text-white text-center col-3"
+                                               th:href="@{'/courses/details/id' (id=${course.getID()})>Детали</a>
+                                            <form th:method=" POST"
+                                            th:action="@{'/personal/delete-course/{id}' (id=${course.getID()})}"
+                                            class="col">
+                                            <button type="submit" class="card-link btn-sm btn-danger text-white">
+                                                Избриши предмет
+                                            </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </div>
-        </section>
-      </div>
+        </div>
     </div>
-  </div>
 </div>

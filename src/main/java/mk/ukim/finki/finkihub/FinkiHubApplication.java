@@ -13,5 +13,5 @@ public class FinkiHubApplication {
     public static void main(String[] args) {
         SpringApplication.run(FinkiHubApplication.class, args);
     }
-    
+
 }

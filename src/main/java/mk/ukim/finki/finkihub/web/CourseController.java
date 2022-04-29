@@ -3,7 +3,6 @@ package mk.ukim.finki.finkihub.web;
 import mk.ukim.finki.finkihub.models.*;
 import mk.ukim.finki.finkihub.service.CourseService;
 import mk.ukim.finki.finkihub.service.StudentService;
-import org.apache.logging.log4j.message.ParameterizedNoReferenceMessageFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ public class CourseController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping()
     public String getCoursesPage(Model model) {
         List<Course> courses = this.courseService.findAll();
         model.addAttribute("courses", courses);
@@ -65,10 +64,6 @@ public class CourseController {
         model.addAttribute("bodyContent", "filteredCourses");
 
         return "master-template";
-    }
-
-    public String getEnrolledPage(Model model) {
-        return "";
     }
 
 }

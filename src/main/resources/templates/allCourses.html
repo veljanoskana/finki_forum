@@ -21,7 +21,11 @@
                                         </ul>
                                         </p>
                                         <a class="card-link btn-sm btn-primary text-white">Детали</a>
-                                        <a class="card-link btn-sm btn-secondary text-white">Додади предмет</a>
+                                        <form th:method="POST" th:action="@{'/personal/add-course/{id}' (id=${course.getID()})}">
+                                            <button type="submit" class="card-link btn-sm btn-secondary text-white">
+                                                Додади предмет
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -9,6 +9,7 @@ import mk.ukim.finki.finkihub.repository.StudentRepository;
 import mk.ukim.finki.finkihub.service.PersonalService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,9 +32,11 @@ public class PersonalServiceImpl implements PersonalService {
     @Override
     public Personal getActivePersonal(Integer index) {
         Student student = this.studentRepository.findById(index).get();
-        return this.personalRepository
-                .findByOwner(student)
-                .get();
+         if(this.personalRepository.findByOwner(student).isPresent())
+             return this.personalRepository.findByOwner(student).get();
+         else {
+             return this.personalRepository.save(new Personal(student, new ArrayList<>()));
+         }
     }
 
 

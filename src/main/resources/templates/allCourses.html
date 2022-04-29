@@ -20,12 +20,17 @@
                                             <li class="list-group-item">Професори: <i>ДОДАЈ ПРОФЕСОРИ ЗА КУРС</i></li>
                                         </ul>
                                         </p>
-                                        <a class="card-link btn-sm btn-primary text-white">Детали</a>
-                                        <form th:method="POST" th:action="@{'/personal/add-course/{id}' (id=${course.getID()})}">
-                                            <button type="submit" class="card-link btn-sm btn-secondary text-white">
-                                                Додади предмет
-                                            </button>
-                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <a class="card-link btn-sm btn-primary text-white text-center col-3">Детали</a>
+                                            <form th:method="POST" class="col"
+                                                  th:action="@{'/personal/add-course/{id}' (id=${course.getID()})}">
+                                                <a type="submit" class="card-link btn-sm btn-secondary text-white">
+                                                    Додади предмет
+                                                </a>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

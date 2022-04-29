@@ -2,6 +2,7 @@ package mk.ukim.finki.finkihub.web;
 
 import mk.ukim.finki.finkihub.models.*;
 import mk.ukim.finki.finkihub.service.CourseService;
+import mk.ukim.finki.finkihub.service.PersonalService;
 import mk.ukim.finki.finkihub.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +18,18 @@ import java.util.stream.Collectors;
 public class CourseController {
     private final CourseService courseService;
     private final StudentService studentService;
+    private final PersonalService personalService;
 
-    public CourseController(CourseService courseService, StudentService studentService) {
+    public CourseController(CourseService courseService, StudentService studentService, PersonalService personalService) {
         this.courseService = courseService;
         this.studentService = studentService;
+        this.personalService = personalService;
     }
 
     @GetMapping()
-    public String getCoursesPage(Model model) {
+    public String getCoursesPage(@PathVariable(required = false)String error, Model model) {
+        if(error != null)
+            model.addAttribute("errorMessage", error);
         List<Course> courses = this.courseService.findAll();
         model.addAttribute("courses", courses);
         model.addAttribute("bodyContent", "allCourses");

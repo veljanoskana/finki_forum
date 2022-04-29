@@ -9,4 +9,6 @@ public interface PersonalService {
     List<Course> listAllCoursesInPersonal(Integer id);
     Personal getActivePersonal(Integer index);
     Personal addCourseToPersonal(Integer index, Integer courseId);
+
+    void save(Personal personalToDeleteFrom);
 }

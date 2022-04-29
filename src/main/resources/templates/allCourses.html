@@ -1,3 +1,6 @@
+<div style="display: none">
+    <p th:text="${error} != null ? ${error} : ''"></p>
+</div>
 <div class="container mb-4">
     <div class="row">
         <div class="table-responsive">
@@ -24,11 +27,11 @@
                                     <div class="card-footer">
                                         <div class="row">
                                             <a class="card-link btn-sm btn-primary text-white text-center col-3">Детали</a>
-                                            <form th:method="POST" class="col"
-                                                  th:action="@{'/personal/add-course/{id}' (id=${course.getID()})}">
-                                                <a type="submit" class="card-link btn-sm btn-secondary text-white">
+                                            <form th:method="POST"
+                                                  th:action="@{'/personal/add-course/{id}' (id=${course.getID()})}" class="col" >
+                                                <button type="submit" class="card-link btn-sm btn-secondary text-white">
                                                     Додади предмет
-                                                </a>
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

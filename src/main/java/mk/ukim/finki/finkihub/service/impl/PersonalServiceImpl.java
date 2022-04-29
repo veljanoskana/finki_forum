@@ -47,4 +47,10 @@ public class PersonalServiceImpl implements PersonalService {
         personal.getPersonalCourses().add(course);
         return this.personalRepository.save(personal);
     }
+
+    @Override
+    public void save(Personal personalToDeleteFrom) {
+        this.personalRepository.save(personalToDeleteFrom);
+    }
+
 }

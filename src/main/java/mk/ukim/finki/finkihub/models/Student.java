@@ -2,6 +2,7 @@ package mk.ukim.finki.finkihub.models;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -35,5 +36,9 @@ public class Student {
 
     public String getFullName(){
         return this.name + " " + this.surname;
+    }
+
+    public int getYear() {
+        return LocalDateTime.now().getYear() - (index / 1000);
     }
 }

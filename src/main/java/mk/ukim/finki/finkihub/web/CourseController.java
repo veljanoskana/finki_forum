@@ -1,7 +1,9 @@
 package mk.ukim.finki.finkihub.web;
-import mk.ukim.finki.finkihub.models.Comment;
-import mk.ukim.finki.finkihub.models.Course;
+
+import mk.ukim.finki.finkihub.models.*;
 import mk.ukim.finki.finkihub.service.CourseService;
+import mk.ukim.finki.finkihub.service.StudentService;
+import org.apache.logging.log4j.message.ParameterizedNoReferenceMessageFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,14 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping({"/", "/courses"})
 public class CourseController {
     private final CourseService courseService;
+    private final StudentService studentService;
 
-    public CourseController(CourseService courseService) {
+    public CourseController(CourseService courseService, StudentService studentService) {
         this.courseService = courseService;
+        this.studentService = studentService;
     }
 
     @GetMapping
@@ -29,7 +34,7 @@ public class CourseController {
 
     @GetMapping("/details/{id}")
     public String detailCoursePage(@PathVariable Integer id,
-                                   Model model){
+                                   Model model) {
         Course course = this.courseService.findById(id).get();
         List<Comment> commentsForCourse = course.getComments();
         model.addAttribute("comments", commentsForCourse);
@@ -38,8 +43,28 @@ public class CourseController {
         return "master-template";
     }
 
+    @GetMapping("/filtered")
     public String getFilteredPage(Model model) {
-        return "";
+        Student currentStudent = this.studentService.findById(191005);
+        Preference preference = currentStudent.getPreference();
+        Program program = currentStudent.getProgram();
+
+        int year = currentStudent.getYear();
+
+        List<Course> mandatories = program.getCoursesInProgram()
+                .stream()
+                .filter(course -> course.getYear().equals(year))
+                .collect(Collectors.toList());
+        List<Course> electorials = preference.getSuggestedCourses()
+                .stream()
+                .filter(course -> course.getYear().equals(year))
+                .collect(Collectors.toList());
+
+        model.addAttribute("mandatories", mandatories);
+        model.addAttribute("electorials", electorials);
+        model.addAttribute("bodyContent", "filteredCourses");
+
+        return "master-template";
     }
 
     public String getEnrolledPage(Model model) {

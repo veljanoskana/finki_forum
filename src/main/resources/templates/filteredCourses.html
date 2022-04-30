@@ -26,6 +26,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div th:each="electory : ${electorials}"
+                                 class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 m4-md-0">
+                                <div class="card">
+                                    <div class="card-header h4" th:text="${electory.getName()}">
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Коментари(<span
+                                                th:text="${electory.getComments().size()}"></span>)</h6>
+                                        <p class="card-text">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Година: <i th:text="${electory.getYear()}"></i>
+                                            </li>
+                                            <li class="list-group-item">Професори: <i>ДОДАЈ ПРОФЕСОРИ ЗА КУРС</i></li>
+                                        </ul>
+                                        </p>
+                                        <a class="card-link btn-sm btn-primary text-white">Детали</a>
+                                        <a class="card-link btn-sm btn-secondary text-white">Додади предмет</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

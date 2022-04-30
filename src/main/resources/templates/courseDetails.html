@@ -12,8 +12,7 @@
                                  th:src="${comment.getURL()}" alt="avatar" width="60"
                                  height="60"/>
                             <div>
-                                <h6 class="fw-bold text-primary mb-1 ml-3"
-                                    th:text="${comment.getAuthor().getFullName()}"></h6>
+                                <h6 class="fw-bold text-primary mb-1 ml-3 text-danger">CURRENT AUTHENTICATED USER NAME</h6>
                                 <p class="text-muted small mb-0 ml-3" th:text=${comment.getTimestampFormatted()}>
                                 </p>
                             </div>

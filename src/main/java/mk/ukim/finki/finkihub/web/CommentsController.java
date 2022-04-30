@@ -30,7 +30,7 @@ public class CommentsController {
     public String saveComment(@RequestParam Course course,
                               @RequestParam String commentBody) {
         Student student = this.studentService.findAll().get(0);
-        Comment comment = new Comment(student, LocalDateTime.now(), commentBody);
+        Comment comment = new Comment(LocalDateTime.now(), commentBody);
         this.commentService.addComment(comment);
         return "redirect:/courses/details/{id}";
     }

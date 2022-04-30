@@ -14,9 +14,6 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
 
-    @ManyToOne
-    private Student author;
-
     private LocalDateTime timestamp;
 
     private String body;
@@ -28,8 +25,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Student author, LocalDateTime timestamp, String body) {
-        this.author = author;
+    public Comment(LocalDateTime timestamp, String body) {
         this.timestamp = timestamp;
         this.body = body;
         this.likes = 0;
@@ -56,10 +52,10 @@ public class Comment {
         return p.format(this.timestamp);
     }
 
-    public String getURL() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("https://ui-avatars.com/api/?name=");
-        stringBuilder.append(this.author.getName()).append("+").append(this.author.getSurname());
-        return stringBuilder.toString();
-    }
+//    public String getURL() {
+//       StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("https://ui-avatars.com/api/?name=");
+//        stringBuilder.append(this.author.getName()).append("+").append(this.author.getSurname());
+//        return stringBuilder.toString();
+//    }
 }

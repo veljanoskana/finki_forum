@@ -39,6 +39,6 @@ public class Student {
     }
 
     public int getYear() {
-        return LocalDateTime.now().getYear() - (index / 1000);
+        return ((LocalDateTime.now().getYear())%100) - (index / 10000);
     }
 }

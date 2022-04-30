@@ -27,8 +27,8 @@ public class CourseController {
     }
 
     @GetMapping()
-    public String getCoursesPage(@PathVariable(required = false)String error, Model model) {
-        if(error != null)
+    public String getCoursesPage(@PathVariable(required = false) String error, Model model) {
+        if (error != null)
             model.addAttribute("errorMessage", error);
         List<Course> courses = this.courseService.findAll();
         model.addAttribute("courses", courses);
@@ -59,13 +59,22 @@ public class CourseController {
                 .stream()
                 .filter(course -> course.getYear().equals(year))
                 .collect(Collectors.toList());
+
         List<Course> electorials = preference.getSuggestedCourses()
                 .stream()
                 .filter(course -> course.getYear().equals(year))
+                .filter(course -> !program.getCoursesInProgram().contains(course))
+                .collect(Collectors.toList());
+
+        List<Course> others = this.courseService.findAll()
+                .stream()
+                .filter(course -> course.getYear().equals(year))
+                .filter(course -> !mandatories.contains(course) && !electorials.contains(course))
                 .collect(Collectors.toList());
 
         model.addAttribute("mandatories", mandatories);
         model.addAttribute("electorials", electorials);
+        model.addAttribute("others", others);
         model.addAttribute("bodyContent", "filteredCourses");
 
         return "master-template";

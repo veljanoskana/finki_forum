@@ -20,12 +20,25 @@ public class Course {
     @OneToMany
     private List<Comment> comments;
 
-    public Course() {}
+    @Transient
+    private boolean myCourse;
+
+    public Course() {
+    }
 
     public Course(Integer ID, String name, Integer year, List<Comment> comments) {
         this.ID = ID;
         this.name = name;
         this.year = year;
         this.comments = comments;
+        this.myCourse = false;
+    }
+
+    public boolean isMyCourse() {
+        return myCourse;
+    }
+
+    public void setMyCourse(boolean myCourse) {
+        this.myCourse = myCourse;
     }
 }

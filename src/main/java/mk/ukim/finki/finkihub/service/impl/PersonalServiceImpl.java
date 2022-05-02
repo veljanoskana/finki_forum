@@ -32,11 +32,11 @@ public class PersonalServiceImpl implements PersonalService {
     @Override
     public Personal getActivePersonal(Integer index) {
         Student student = this.studentRepository.findById(index).get();
-         if(this.personalRepository.findByOwner(student).isPresent())
-             return this.personalRepository.findByOwner(student).get();
-         else {
-             return this.personalRepository.save(new Personal(student, new ArrayList<>()));
-         }
+        if (this.personalRepository.findByOwner(student).isPresent())
+            return this.personalRepository.findByOwner(student).get();
+        else {
+            return this.personalRepository.save(new Personal(student, new ArrayList<>()));
+        }
     }
 
 
@@ -44,6 +44,8 @@ public class PersonalServiceImpl implements PersonalService {
     public Personal addCourseToPersonal(Integer index, Integer courseId) {
         Personal personal = this.getActivePersonal(index);
         Course course = this.courseRepository.getById(courseId);
+        course.setMyCourse(true);
+        boolean isIt = course.isMyCourse();
         personal.getPersonalCourses().add(course);
         return this.personalRepository.save(personal);
     }

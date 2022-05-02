@@ -48,6 +48,11 @@ public class CourseController {
                 .collect(Collectors.toList());
         model.addAttribute("comments", commentsForCourse);
         model.addAttribute("course", course);
+
+        if (this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+            course.setMyCourse(true);
+
+        model.addAttribute("myCourse", course.isMyCourse());
         model.addAttribute("bodyContent", "courseDetails");
         return "master-template";
     }

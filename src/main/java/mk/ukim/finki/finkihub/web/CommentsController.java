@@ -7,9 +7,7 @@ import mk.ukim.finki.finkihub.service.CommentService;
 import mk.ukim.finki.finkihub.service.CourseService;
 import mk.ukim.finki.finkihub.service.StudentService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -33,5 +31,21 @@ public class CommentsController {
         Comment comment = new Comment(LocalDateTime.now(), commentBody);
         this.commentService.addComment(comment);
         return "redirect:/courses/details/{id}";
+    }
+
+    @GetMapping("/like/{id}/{course}")
+    public String likeComment(@PathVariable Integer id,
+                              @PathVariable Integer course){
+        Comment comment = this.commentService.findById(id);
+        this.commentService.likeComment(comment);
+        return "redirect:/courses/details/{course}";
+    }
+
+    @GetMapping("/dislike/{id}/{course}")
+    public String dislikeComment(@PathVariable Integer id,
+                                 @PathVariable Integer course){
+        Comment comment = this.commentService.findById(id);
+        this.commentService.disLikeComment(comment);
+        return "redirect:/courses/details/{course}";
     }
 }

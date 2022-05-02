@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +42,10 @@ public class CourseController {
     public String detailCoursePage(@PathVariable Integer id,
                                    Model model) {
         Course course = this.courseService.findById(id).get();
-        List<Comment> commentsForCourse = course.getComments();
+        List<Comment> commentsForCourse = course.getComments()
+                .stream()
+                .sorted(Comparator.comparing(comment -> comment.getTimestamp()))
+                .collect(Collectors.toList());
         model.addAttribute("comments", commentsForCourse);
         model.addAttribute("course", course);
         model.addAttribute("bodyContent", "courseDetails");

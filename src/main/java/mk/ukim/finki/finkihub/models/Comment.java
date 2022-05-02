@@ -29,6 +29,7 @@ public class Comment {
         this.timestamp = timestamp;
         this.body = body;
         this.likes = 0;
+        this.dislikes = 0;
     }
 
     public Integer getLikes() {

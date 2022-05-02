@@ -32,7 +32,7 @@ public class CourseController {
     public String getCoursesPage(@PathVariable(required = false) String error,
                                  Model model) {
         if (error != null)
-            model.addAttribute("errorMessage", error);
+            model.addAttribute("error", error);
         List<Course> courses = this.courseService.findAll()
                 .stream()
                 .filter(course -> !this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))

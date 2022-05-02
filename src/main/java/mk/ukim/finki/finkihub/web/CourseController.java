@@ -42,7 +42,7 @@ public class CourseController {
                 .sorted(Comparator.comparing(course -> course.getYear()))
                 .collect(Collectors.toList());
         model.addAttribute("courses", courses);
-        model.addAttribute("bodyContent", "allCourses");
+        model.addAttribute("bodyContent", "courses");
         return "master-template";
     }
 
@@ -66,7 +66,7 @@ public class CourseController {
             course.setMyCourse(true);
 
         model.addAttribute("myCourse", course.isMyCourse());
-        model.addAttribute("bodyContent", "courseDetails");
+        model.addAttribute("bodyContent", "details");
         return "master-template";
     }
 
@@ -98,7 +98,7 @@ public class CourseController {
         model.addAttribute("mandatories", mandatories);
         model.addAttribute("electorials", electorials);
         model.addAttribute("others", others);
-        model.addAttribute("bodyContent", "filteredCourses");
+        model.addAttribute("bodyContent", "filtered-courses");
 
         return "master-template";
     }

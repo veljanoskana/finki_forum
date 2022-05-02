@@ -25,7 +25,7 @@ public class PersonalController {
     public String getPersonalCoursesPage(Model model) {
         Personal personal = this.personalService.getActivePersonal(191005);
         model.addAttribute("courses", this.personalService.listAllCoursesInPersonal(personal.getID()));
-        model.addAttribute("bodyContent", "personalCourses");
+        model.addAttribute("bodyContent", "personal-courses");
         return "master-template";
     }
 

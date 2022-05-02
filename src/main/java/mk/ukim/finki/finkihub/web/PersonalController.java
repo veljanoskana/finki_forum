@@ -37,7 +37,7 @@ public class PersonalController {
             return "redirect:/courses?error=LimitReached";
 
         this.personalService.addCourseToPersonal(191005, id);
-        return "redirect:/personal";
+        return "redirect:/courses";
     }
 
     @PostMapping("/delete-course/{id}")

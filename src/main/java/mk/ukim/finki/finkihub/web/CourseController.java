@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,11 +30,16 @@ public class CourseController {
     @GetMapping()
     public String getCoursesPage(@PathVariable(required = false) String error,
                                  Model model) {
-        if (error != null)
+
+        if (error != null && !error.isEmpty()) {
             model.addAttribute("error", error);
+            model.addAttribute("hasError", true);
+        }
+
         List<Course> courses = this.courseService.findAll()
                 .stream()
                 .filter(course -> !this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+                .sorted(Comparator.comparing(course -> course.getYear()))
                 .collect(Collectors.toList());
         model.addAttribute("courses", courses);
         model.addAttribute("bodyContent", "allCourses");

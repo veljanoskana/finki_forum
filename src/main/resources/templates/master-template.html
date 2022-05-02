@@ -17,6 +17,9 @@
 </head>
 <body>
 <header th:replace="fragments/header"></header>
+<div th:if="${hasError}">
+    <h5 class="text-center text-danger" th:text="${error}"></h5>
+</div>
 <div th:include="${bodyContent}"></div>
 </body>
 </html>

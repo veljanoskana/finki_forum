@@ -32,8 +32,10 @@ public class PersonalController {
     @PostMapping("/add-course/{id}")
     public String addCourseToPersonal(@PathVariable Integer id,
                                       Model model) {
-        if(this.personalService.getActivePersonal(191005).getPersonalCourses().size() > 10)
+
+        if (this.personalService.getActivePersonal(191005).getPersonalCourses().size() > 10)
             return "redirect:/courses?error=LimitReached";
+
         this.personalService.addCourseToPersonal(191005, id);
         return "redirect:/personal";
     }

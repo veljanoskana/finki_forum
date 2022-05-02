@@ -44,8 +44,6 @@ public class PersonalServiceImpl implements PersonalService {
     public Personal addCourseToPersonal(Integer index, Integer courseId) {
         Personal personal = this.getActivePersonal(index);
         Course course = this.courseRepository.getById(courseId);
-        course.setMyCourse(true);
-        boolean isIt = course.isMyCourse();
         personal.getPersonalCourses().add(course);
         return this.personalRepository.save(personal);
     }

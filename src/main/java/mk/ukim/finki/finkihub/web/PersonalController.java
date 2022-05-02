@@ -30,7 +30,8 @@ public class PersonalController {
     }
 
     @PostMapping("/add-course/{id}")
-    public String addCourseToPersonal(@PathVariable Integer id) {
+    public String addCourseToPersonal(@PathVariable Integer id,
+                                      Model model) {
         this.personalService.addCourseToPersonal(191005, id);
         return "redirect:/personal";
     }

@@ -4,6 +4,7 @@
             <div class="container">
                 <section id="services" class="services section-bg">
                     <div class="container">
+                        <p th:if="${limitReached == true}">Веќе имате додадено 10 предмети!</p>
                         <div class="row">
                             <div th:each="course : ${courses}"
                                  class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 m4-md-0">

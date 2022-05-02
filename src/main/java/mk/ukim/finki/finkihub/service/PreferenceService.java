@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PreferenceService {
     List<Preference> findAll();
+
+    void changePreference(Integer id);
 }

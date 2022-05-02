@@ -29,10 +29,14 @@ public class CourseController {
     }
 
     @GetMapping()
-    public String getCoursesPage(@PathVariable(required = false) String error, Model model) {
+    public String getCoursesPage(@PathVariable(required = false) String error,
+                                 Model model) {
         if (error != null)
             model.addAttribute("errorMessage", error);
-        List<Course> courses = this.courseService.findAll();
+        List<Course> courses = this.courseService.findAll()
+                .stream()
+                .filter(course -> !this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+                .collect(Collectors.toList());
         model.addAttribute("courses", courses);
         model.addAttribute("bodyContent", "allCourses");
         return "master-template";

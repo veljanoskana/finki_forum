@@ -54,8 +54,13 @@ public class CourseController {
                 .stream()
                 .sorted(Comparator.comparing(comment -> comment.getTimestamp()))
                 .collect(Collectors.toList());
-        model.addAttribute("comments", commentsForCourse);
-        model.addAttribute("course", course);
+
+        if (commentsForCourse.isEmpty())
+            model.addAttribute("noComments", true);
+        else {
+            model.addAttribute("comments", commentsForCourse);
+            model.addAttribute("course", course);
+        }
 
         if (this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
             course.setMyCourse(true);

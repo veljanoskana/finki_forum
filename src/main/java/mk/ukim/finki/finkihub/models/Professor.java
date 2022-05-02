@@ -22,12 +22,17 @@ public class Professor {
     @ManyToMany
     private List<Course> teachingCourses;
 
-    public Professor() {}
+    public Professor() {
+    }
 
     public Professor(Integer ID, String name, String surname, String link) {
         this.ID = ID;
         this.name = name;
         this.surname = surname;
         this.link = link;
+    }
+
+    public String getFullName() {
+        return this.name + " " + this.surname;
     }
 }

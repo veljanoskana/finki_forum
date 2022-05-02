@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test HTML</title>
+</head>
+<body>
+
+<ul>
+    <li th:each="course : ${courses}">
+        <p th:each="professor : ${course.getProfessor()}">
+            <a th:text="${professor.getFullName()}" th:href="${professor.getLink()}"></a>
+        </p>
+    </li>
+</ul>
+
+</body>
+</html>

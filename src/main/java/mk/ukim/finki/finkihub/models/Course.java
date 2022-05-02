@@ -20,6 +20,9 @@ public class Course {
     @OneToMany
     private List<Comment> comments;
 
+    @ManyToMany(mappedBy = "teachingCourses")
+    private List<Professor> professor;
+
     @Transient
     private boolean myCourse;
 

@@ -6,6 +6,7 @@ import mk.ukim.finki.finkihub.service.StudentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -21,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findById(Integer id) {
-        return this.studentRepository.findById(id).get();
+    public Optional<Student> findById(Integer id) {
+        return this.studentRepository.findById(id);
     }
 }

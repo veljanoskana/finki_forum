@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Comparator;
 import java.util.List;
@@ -100,6 +101,21 @@ public class CourseController {
         model.addAttribute("others", others);
         model.addAttribute("bodyContent", "filtered-courses");
 
+        return "master-template";
+    }
+
+    @GetMapping("/search")
+    public String searchCourses(@RequestParam String keyword,
+                                Model model) {
+        List<Course> courses = this.courseService.findAll()
+                .stream()
+                .filter(course -> course.getName().contains(keyword))
+                .collect(Collectors.toList());
+        if (courses.isEmpty())
+            return "redirect:/courses";
+        model.addAttribute("courses", courses);
+        model.addAttribute("back", true);
+        model.addAttribute("bodyContent", "courses");
         return "master-template";
     }
 

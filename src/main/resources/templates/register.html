@@ -14,7 +14,7 @@
 
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body">
-                        <form method="POST">
+                        <form method="POST" th:action="@{/register}">
                             <div class="row align-items-center pt-4 pb-3">
                                 <div class="col-md-3 ps-5">
 
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="col-md-9 pe-5">
 
-                                    <select class="form-control" id="program" name="program">
+                                    <select class="form-control" id="program" name="programId">
                                         <option value="0">Одберете насока...</option>
                                         <option th:each="program : ${programs}" th:value="${program.getID()}"
                                                 th:text="${program.getName()}"></option>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-md-9 pe-5">
 
-                                    <select id="preference" name="preference" class="form-control">
+                                    <select id="preference" name="preferenceId" class="form-control">
                                         <option value="0">Одберете преференца...</option>
                                         <option th:each="preference : ${preferences}" th:value="${preference.getID()}"
                                                 th:text="${preference.getName()}"></option>

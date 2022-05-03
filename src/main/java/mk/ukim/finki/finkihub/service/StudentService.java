@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface StudentService {
     List<Student> findAll();
+
     Optional<Student> findById(Integer id);
+
+    void save(Student student);
 }

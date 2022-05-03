@@ -9,6 +9,7 @@ import mk.ukim.finki.finkihub.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Controller
@@ -25,12 +26,11 @@ public class CommentsController {
     }
 
     @PostMapping("/add")
-    public String saveComment(@RequestParam Course course,
+    public String saveComment(@RequestParam Integer courseId,
                               @RequestParam String commentBody) {
-        Student student = this.studentService.findAll().get(0);
         Comment comment = new Comment(LocalDateTime.now(), commentBody);
         this.commentService.addComment(comment);
-        return "redirect:/courses/details/{id}";
+        return "redirect:/courses/details/{courseId}";
     }
 
     @GetMapping("/like/{id}/{course}")

@@ -72,7 +72,7 @@ public class CourseController {
 
     @GetMapping("/filtered")
     public String getFilteredPage(Model model) {
-        Student currentStudent = this.studentService.findById(191005);
+        Student currentStudent = this.studentService.findById(191005).get();
         Preference preference = currentStudent.getPreference();
         Program program = currentStudent.getProgram();
 

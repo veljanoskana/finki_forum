@@ -4,7 +4,6 @@ import mk.ukim.finki.finkihub.models.Preference;
 import mk.ukim.finki.finkihub.models.Program;
 import mk.ukim.finki.finkihub.models.Role;
 import mk.ukim.finki.finkihub.models.Student;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +13,8 @@ public interface StudentService {
     List<Student> findAll();
 
     Optional<Student> findById(Integer id);
+
+    Optional<Student> findByIndexAndPassword(Integer id, String password);
 
     void save(Student student);
 

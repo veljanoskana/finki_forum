@@ -6,8 +6,6 @@ import mk.ukim.finki.finkihub.models.Role;
 import mk.ukim.finki.finkihub.models.Student;
 import mk.ukim.finki.finkihub.repository.StudentRepository;
 import mk.ukim.finki.finkihub.service.StudentService;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +28,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Optional<Student> findById(Integer id) {
         return this.studentRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Student> findByIndexAndPassword(Integer id, String password) {
+        return this.studentRepository.findByIndexAndPassword(id, password);
     }
 
     @Override

@@ -28,8 +28,8 @@ public class PreferenceServiceImpl implements PreferenceService {
     }
 
     @Override
-    public void changePreference(Integer id) {
-        Student student = this.studentRepository.findById(191005).get();
+    public void changePreference(Integer id, Integer index) {
+        Student student = this.studentRepository.findById(index).get();
         Preference preference = this.preferenceRepository.findById(id).get();
         student.setPreference(preference);
         this.studentRepository.save(student);

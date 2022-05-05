@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PreferenceService {
     List<Preference> findAll();
 
-    void changePreference(Integer id);
+    void changePreference(Integer id, Integer index);
 
     Optional<Preference> findById(Integer id);
 }

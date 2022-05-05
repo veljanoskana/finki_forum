@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
 
     private LocalDateTime timestamp;
@@ -32,6 +32,15 @@ public class Comment {
         this.body = body;
         this.likes = 0;
         this.dislikes = 0;
+    }
+
+    public Comment(Integer ID, LocalDateTime timestamp, String body, Integer likes, Integer dislikes, String authorName) {
+        this.ID = ID;
+        this.timestamp = timestamp;
+        this.body = body;
+        this.likes = likes;
+        this.dislikes = dislikes;
+        this.authorName = authorName;
     }
 
     public Integer getLikes() {

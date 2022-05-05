@@ -24,14 +24,15 @@ public class CommentsController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/add")
-    public String saveComment(HttpServletRequest request) {
+    @PostMapping("/add/{course}")
+    public String saveComment(HttpServletRequest request,
+                              @PathVariable Integer course) {
         Comment comment = new Comment(LocalDateTime.now(), request.getParameter("commentBody"));
         Student student = this.studentService.findById(Integer.parseInt(request.getRemoteUser())).get();
         comment.setAuthorName(student.getFullName());
+        this.courseService.findById(course).get().getComments().add(comment);
         this.commentService.addComment(comment);
-        String id = request.getParameter("courseId");
-        return "redirect:/courses/details/{id}";
+        return "redirect:/courses/details/{course}";
     }
 
     @GetMapping("/like/{id}/{course}")

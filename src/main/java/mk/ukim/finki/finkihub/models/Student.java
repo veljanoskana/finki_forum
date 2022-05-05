@@ -1,12 +1,17 @@
 package mk.ukim.finki.finkihub.models;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Data
-public class Student {
+public class Student implements UserDetails {
 
     @Id
     private Integer index;
@@ -23,22 +28,57 @@ public class Student {
     @ManyToOne
     private Program program;
 
-    public Student() {}
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
-    public Student(Integer index, String name, String surname, String password, Preference preference, Program program) {
+    public Student() {
+    }
+
+    public Student(Integer index, String name, String surname, String password, Preference preference, Program program, Role role) {
         this.index = index;
         this.name = name;
         this.surname = surname;
         this.preference = preference;
         this.password = password;
         this.program = program;
+        this.role = role;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return this.name + " " + this.surname;
     }
 
     public int getYear() {
-        return ((LocalDateTime.now().getYear())%100) - (index / 10000);
+        return ((LocalDateTime.now().getYear()) % 100) - (index / 10000);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(this.role);
+    }
+
+    @Override
+    public String getUsername() {
+        return String.valueOf(this.index);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

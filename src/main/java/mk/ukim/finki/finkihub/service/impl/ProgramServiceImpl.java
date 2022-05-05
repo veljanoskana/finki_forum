@@ -6,6 +6,7 @@ import mk.ukim.finki.finkihub.service.ProgramService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
@@ -19,5 +20,10 @@ public class ProgramServiceImpl implements ProgramService {
     @Override
     public List<Program> findAll() {
         return programRepository.findAll();
+    }
+
+    @Override
+    public Optional<Program> findById(Integer id) {
+        return this.programRepository.findById(id);
     }
 }

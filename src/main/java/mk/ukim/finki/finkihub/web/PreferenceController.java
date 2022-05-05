@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/preference")
 public class PreferenceController {
@@ -21,8 +23,9 @@ public class PreferenceController {
     }
 
     @PostMapping("/change")
-    public String changePreference(@RequestParam Integer id) {
-        this.preferenceService.changePreference(id);
+    public String changePreference(HttpServletRequest request,
+                                   @RequestParam Integer id) {
+        this.preferenceService.changePreference(id, Integer.parseInt(request.getRemoteUser()));
         return "redirect:/courses/filtered";
     }
 

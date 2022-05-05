@@ -22,6 +22,8 @@ public class Comment {
 
     private Integer dislikes;
 
+    private String authorName;
+
     public Comment() {
     }
 
@@ -30,6 +32,15 @@ public class Comment {
         this.body = body;
         this.likes = 0;
         this.dislikes = 0;
+    }
+
+    public Comment(Integer ID, LocalDateTime timestamp, String body, Integer likes, Integer dislikes, String authorName) {
+        this.ID = ID;
+        this.timestamp = timestamp;
+        this.body = body;
+        this.likes = likes;
+        this.dislikes = dislikes;
+        this.authorName = authorName;
     }
 
     public Integer getLikes() {

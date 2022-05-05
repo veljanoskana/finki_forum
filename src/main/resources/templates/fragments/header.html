@@ -3,14 +3,14 @@
         <div class="container d-flex justify-content-center">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <a class="navbar-brand" href="#"
-                    ><img
-                            id="finki-logo"
-                            src="https://finki.ukim.mk/sites/default/files/logo_10.png"
-                            alt="FINKI Logo"
-                            draggable="false"
-                            height="80"
-                    /></a>
+                    <a class="navbar-brand" href="https://finki.ukim.mk/">
+                        <img
+                                id="finki-logo"
+                                src="https://finki.ukim.mk/sites/default/files/logo_10.png"
+                                alt="FINKI Logo"
+                                draggable="false"
+                                height="80"
+                        /></a>
                 </div>
                 <div class="col-12 d-flex justify-content-center">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -27,10 +27,12 @@
                                 <a class="nav-link mx-2 btn btn-outline-info" th:href="@{/personal}"><i
                                         class="fas fa-heart pe-2"></i>Мои предмети</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2 btn btn-danger" th:href="@{/admin}"><i
-                                        class="fas fa-heart pe-2"></i>Модифицирај</a>
-                            </li>
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 btn btn-danger text-white" th:href="@{/admin}"><i
+                                            class="fas fa-heart pe-2">Модифицирај</i></a>
+                                </li>
+                            </th:block>
                         </ul>
                     </div>
                 </div>

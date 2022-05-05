@@ -1,7 +1,6 @@
 package mk.ukim.finki.finkihub.web;
 
 import mk.ukim.finki.finkihub.models.Comment;
-import mk.ukim.finki.finkihub.models.Course;
 import mk.ukim.finki.finkihub.models.Student;
 import mk.ukim.finki.finkihub.service.CommentService;
 import mk.ukim.finki.finkihub.service.CourseService;
@@ -25,17 +24,20 @@ public class CommentsController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/add")
-    public String saveComment(@RequestParam Integer courseId,
-                              @RequestParam String commentBody) {
-        Comment comment = new Comment(LocalDateTime.now(), commentBody);
+    @PostMapping("/add/{course}")
+    public String saveComment(HttpServletRequest request,
+                              @PathVariable Integer course) {
+        Comment comment = new Comment(LocalDateTime.now(), request.getParameter("commentBody"));
+        Student student = this.studentService.findById(Integer.parseInt(request.getRemoteUser())).get();
+        comment.setAuthorName(student.getFullName());
+        this.courseService.findById(course).get().getComments().add(comment);
         this.commentService.addComment(comment);
-        return "redirect:/courses/details/{courseId}";
+        return "redirect:/courses/details/{course}";
     }
 
     @GetMapping("/like/{id}/{course}")
     public String likeComment(@PathVariable Integer id,
-                              @PathVariable Integer course){
+                              @PathVariable Integer course) {
         Comment comment = this.commentService.findById(id);
         this.commentService.likeComment(comment);
         return "redirect:/courses/details/{course}";
@@ -43,7 +45,7 @@ public class CommentsController {
 
     @GetMapping("/dislike/{id}/{course}")
     public String dislikeComment(@PathVariable Integer id,
-                                 @PathVariable Integer course){
+                                 @PathVariable Integer course) {
         Comment comment = this.commentService.findById(id);
         this.commentService.disLikeComment(comment);
         return "redirect:/courses/details/{course}";

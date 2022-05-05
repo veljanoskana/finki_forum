@@ -12,8 +12,8 @@
                     <div th:each="comment : ${comments}" class="card-body">
                         <div class="d-flex flex-start align-items-center">
                             <div>
-                                <h6 class="fw-bold text-primary mb-1 ml-3 text-danger">CURRENT AUTHENTICATED USER
-                                    NAME</h6>
+                                <h6 class="fw-bold text-primary mb-1 ml-3"
+                                    th:text="${comment.getAuthorName()}"></h6>
                                 <p class="text-muted small mb-0 ml-3" th:text=${comment.getTimestampFormatted()}>
                                 </p>
                             </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;"
                          th:if="${myCourse == true}">
-                        <form>
+                        <form method="post" th:action="@{/comments/add/{course} (course=${course.getID()})}">
                             <div class="d-flex flex-start w-100">
                                 <div class="form-outline w-100">
                                     <label for="commentBody" style="display: none"></label>

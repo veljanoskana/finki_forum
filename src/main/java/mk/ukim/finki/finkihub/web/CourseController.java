@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +31,7 @@ public class CourseController {
 
     @GetMapping()
     public String getCoursesPage(@PathVariable(required = false) String error,
+                                 HttpServletRequest request,
                                  Model model) {
 
         if (error != null && !error.isEmpty()) {
@@ -38,7 +41,7 @@ public class CourseController {
 
         List<Course> courses = this.courseService.findAll()
                 .stream()
-                .filter(course -> !this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+                .filter(course -> !this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser())).getPersonalCourses().contains(course))
                 .sorted(Comparator.comparing(course -> course.getYear()))
                 .collect(Collectors.toList());
         model.addAttribute("courses", courses);
@@ -48,7 +51,8 @@ public class CourseController {
 
     @GetMapping("/details/{id}")
     public String detailCoursePage(@PathVariable Integer id,
-                                   Model model) {
+                                   Model model,
+                                   HttpServletRequest request) {
         Course course = this.courseService.findById(id).get();
         List<Comment> commentsForCourse = course.getComments()
                 .stream()
@@ -59,10 +63,11 @@ public class CourseController {
             model.addAttribute("noComments", true);
         else {
             model.addAttribute("comments", commentsForCourse);
-            model.addAttribute("course", course);
         }
 
-        if (this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+        model.addAttribute("course", course);
+
+        if (this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser())).getPersonalCourses().contains(course))
             course.setMyCourse(true);
 
         model.addAttribute("myCourse", course.isMyCourse());
@@ -71,8 +76,9 @@ public class CourseController {
     }
 
     @GetMapping("/filtered")
-    public String getFilteredPage(Model model) {
-        Student currentStudent = this.studentService.findById(191005);
+    public String getFilteredPage(Model model,
+                                  HttpServletRequest request) {
+        Student currentStudent = this.studentService.findById(Integer.parseInt(request.getRemoteUser())).get();
         Preference preference = currentStudent.getPreference();
         Program program = currentStudent.getProgram();
 
@@ -100,6 +106,27 @@ public class CourseController {
         model.addAttribute("others", others);
         model.addAttribute("bodyContent", "filtered-courses");
 
+        return "master-template";
+    }
+
+    @GetMapping("/search")
+    public String searchCourses(@RequestParam String keyword,
+                                Model model) {
+        List<Course> courses = this.courseService.findAll()
+                .stream()
+                .filter(course -> course.getName().contains(keyword))
+                .collect(Collectors.toList());
+        if (courses.isEmpty())
+            return "redirect:/courses";
+        model.addAttribute("courses", courses);
+        model.addAttribute("back", true);
+        model.addAttribute("bodyContent", "courses");
+        return "master-template";
+    }
+
+    @GetMapping("/access_denied")
+    public String accessDeniedPage(Model model) {
+        model.addAttribute("bodyContent", "access-denied");
         return "master-template";
     }
 

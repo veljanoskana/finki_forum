@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/personal")
 public class PersonalController {
@@ -22,8 +24,9 @@ public class PersonalController {
     }
 
     @GetMapping
-    public String getPersonalCoursesPage(Model model) {
-        Personal personal = this.personalService.getActivePersonal(191005);
+    public String getPersonalCoursesPage(Model model,
+                                         HttpServletRequest request) {
+        Personal personal = this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser()));
         model.addAttribute("courses", this.personalService.listAllCoursesInPersonal(personal.getID()));
         model.addAttribute("bodyContent", "personal-courses");
         return "master-template";
@@ -31,18 +34,20 @@ public class PersonalController {
 
     @PostMapping("/add-course/{id}")
     public String addCourseToPersonal(@PathVariable Integer id,
-                                      Model model) {
+                                      Model model,
+                                      HttpServletRequest request) {
 
-        if (this.personalService.getActivePersonal(191005).getPersonalCourses().size() > 10)
+        if (this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser())).getPersonalCourses().size() > 10)
             return "redirect:/courses?error=LimitReached";
 
-        this.personalService.addCourseToPersonal(191005, id);
+        this.personalService.addCourseToPersonal(Integer.parseInt(request.getRemoteUser()), id);
         return "redirect:/courses";
     }
 
     @PostMapping("/delete-course/{id}")
-    public String deleteCourseFromPersonal(@PathVariable Integer id) {
-        Personal personalToDeleteFrom = this.personalService.getActivePersonal(191005);
+    public String deleteCourseFromPersonal(@PathVariable Integer id,
+                                           HttpServletRequest request) {
+        Personal personalToDeleteFrom = this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser()));
         personalToDeleteFrom.getPersonalCourses()
                 .removeIf(course -> course.getID().equals(id));
         this.personalService.save(personalToDeleteFrom);

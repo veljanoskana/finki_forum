@@ -44,4 +44,9 @@ public class PreferenceServiceImpl implements PreferenceService {
     public void save(Preference preference) {
         this.preferenceRepository.save(preference);
     }
+
+    @Override
+    public Optional<Preference> findByName(String preferenceName) {
+        return this.preferenceRepository.findByName(preferenceName);
+    }
 }

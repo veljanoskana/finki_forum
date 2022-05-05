@@ -11,4 +11,6 @@ public interface CourseService {
     Optional<Course> findById(Integer id);
 
     void save(Course course);
+
+    Optional<Course> findByName(String name);
 }

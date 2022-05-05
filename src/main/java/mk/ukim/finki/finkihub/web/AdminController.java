@@ -3,6 +3,9 @@ package mk.ukim.finki.finkihub.web;
 import mk.ukim.finki.finkihub.models.Course;
 import mk.ukim.finki.finkihub.models.Preference;
 import mk.ukim.finki.finkihub.models.Professor;
+import mk.ukim.finki.finkihub.models.exceptions.CourseAlreadyExistsException;
+import mk.ukim.finki.finkihub.models.exceptions.PreferenceAlreadyExistsException;
+import mk.ukim.finki.finkihub.models.exceptions.ProfessorAlreadyExistsException;
 import mk.ukim.finki.finkihub.service.CourseService;
 import mk.ukim.finki.finkihub.service.PreferenceService;
 import mk.ukim.finki.finkihub.service.ProfessorService;
@@ -59,14 +62,19 @@ public class AdminController {
 
     @PostMapping("/add-course")
     public String addCourse(@RequestParam String courseName,
-                            @RequestParam Integer year) {
-        this.courseService.save(new Course(courseName, year));
+                            @RequestParam Integer year) throws CourseAlreadyExistsException {
+        Course course = new Course(courseName, year);
+        if (this.courseService.findByName(course.getName()).isPresent())
+            throw new CourseAlreadyExistsException();
+        this.courseService.save(course);
         return "redirect:/admin";
     }
 
     @PostMapping("/add-preference")
     public String addPreference(@RequestParam String preferenceName,
-                                @RequestParam List<Integer> courses) {
+                                @RequestParam List<Integer> courses) throws PreferenceAlreadyExistsException {
+        if (this.preferenceService.findByName(preferenceName).isPresent())
+            throw new PreferenceAlreadyExistsException();
         List<Course> coursesInPreference = courses.stream()
                 .map(course -> this.courseService.findById(course).get())
                 .collect(Collectors.toList());
@@ -78,7 +86,9 @@ public class AdminController {
     public String addProfessor(@RequestParam String firstName,
                                @RequestParam String lastName,
                                @RequestParam String link,
-                               @RequestParam List<Integer> courses) {
+                               @RequestParam List<Integer> courses) throws ProfessorAlreadyExistsException {
+        if (this.professorService.findByLink(link).isPresent())
+            throw new ProfessorAlreadyExistsException();
         List<Course> teachingCourses = courses.stream()
                 .map(course -> this.courseService.findById(course).get())
                 .collect(Collectors.toList());

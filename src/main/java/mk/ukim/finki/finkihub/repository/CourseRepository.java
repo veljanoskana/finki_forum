@@ -13,4 +13,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     @Override
     Optional<Course> findById(Integer id);
+
+    Optional<Course> findByName(String name);
 }

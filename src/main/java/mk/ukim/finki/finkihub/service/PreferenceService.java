@@ -13,4 +13,6 @@ public interface PreferenceService {
     Optional<Preference> findById(Integer id);
 
     void save(Preference preference);
+
+    Optional<Preference> findByName(String preferenceName);
 }

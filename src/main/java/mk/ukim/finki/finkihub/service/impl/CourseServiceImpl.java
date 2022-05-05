@@ -30,4 +30,9 @@ public class CourseServiceImpl implements CourseService {
     public void save(Course course) {
         this.courseRepository.save(course);
     }
+
+    @Override
+    public Optional<Course> findByName(String name) {
+        return this.courseRepository.findByName(name);
+    }
 }

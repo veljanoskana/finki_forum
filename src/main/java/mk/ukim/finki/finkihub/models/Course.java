@@ -3,6 +3,7 @@ package mk.ukim.finki.finkihub.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -35,6 +36,13 @@ public class Course {
         this.year = year;
         this.comments = comments;
         this.myCourse = false;
+    }
+
+    public Course(String courseName, Integer year) {
+        this.name = courseName;
+        this.year = year;
+        this.comments = new ArrayList<>();
+        this.professor = new ArrayList<>();
     }
 
     public boolean isMyCourse() {

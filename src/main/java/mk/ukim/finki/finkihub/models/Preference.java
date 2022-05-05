@@ -18,11 +18,17 @@ public class Preference {
     @ManyToMany
     private List<Course> suggestedCourses;
 
-    public Preference() {}
+    public Preference() {
+    }
 
     public Preference(Integer ID, String name, List<Course> suggestedCourses) {
         this.ID = ID;
         this.name = name;
         this.suggestedCourses = suggestedCourses;
+    }
+
+    public Preference(String preferenceName, List<Course> coursesInPreference) {
+        this.name = preferenceName;
+        this.suggestedCourses = coursesInPreference;
     }
 }

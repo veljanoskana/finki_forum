@@ -9,4 +9,6 @@ public interface CourseService {
     List<Course> findAll();
 
     Optional<Course> findById(Integer id);
+
+    void save(Course course);
 }

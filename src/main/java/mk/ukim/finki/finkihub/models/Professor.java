@@ -32,6 +32,13 @@ public class Professor {
         this.link = link;
     }
 
+    public Professor(String firstName, String lastName, String link, List<Course> courses) {
+        this.name = firstName;
+        this.surname = lastName;
+        this.link = link;
+        this.teachingCourses = courses;
+    }
+
     public String getFullName() {
         return this.name + " " + this.surname;
     }

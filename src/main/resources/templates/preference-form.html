@@ -1,0 +1,64 @@
+<style>
+    .intro {
+        height: 100%;
+    }
+
+    .gradient-custom {
+        /* fallback for old browsers */
+        background: #fa709a;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to bottom right, rgba(250, 112, 154, 1), rgba(254, 225, 64, 1));
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to bottom right, rgb(112, 250, 114), rgba(254, 225, 64, 1))
+    }
+</style>
+<section class="intro">
+    <div class="mask d-flex align-items-center h-100 gradient-custom">
+        <div class="container pt-5 pb-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2">Додај преференца</h3>
+
+                            <form method="post" th:action="@{/admin/add-preference}">
+
+                                <div class="row">
+                                    <div class="col mb-4">
+
+                                        <div class="form-outline">
+                                            <label class="form-label" for="preferenceName">Име</label>
+
+                                            <input type="text" name="preferenceName" id="preferenceName"
+                                                   class="form-control"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <h6 class="mb-3">Курсеви</h6>
+                                        <label class="form-label select-label">Одбери курсеви во преференца...</label>
+                                        <select class="select" multiple name="courses">
+                                            <option th:each="course : ${courses}" th:value="${course.getID()}"
+                                                    th:text="${course.getName()}">One
+                                            </option>
+                                        </select>
+                                        <div class="mt-4">
+                                            <input class="btn btn-warning btn-lg" type="submit" value="Додади"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

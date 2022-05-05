@@ -39,4 +39,9 @@ public class PreferenceServiceImpl implements PreferenceService {
     public Optional<Preference> findById(Integer id) {
         return this.preferenceRepository.findById(id);
     }
+
+    @Override
+    public void save(Preference preference) {
+        this.preferenceRepository.save(preference);
+    }
 }

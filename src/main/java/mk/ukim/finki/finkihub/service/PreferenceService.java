@@ -11,4 +11,6 @@ public interface PreferenceService {
     void changePreference(Integer id, Integer index);
 
     Optional<Preference> findById(Integer id);
+
+    void save(Preference preference);
 }

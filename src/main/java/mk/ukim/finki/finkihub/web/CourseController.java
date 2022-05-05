@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class CourseController {
 
     @GetMapping()
     public String getCoursesPage(@PathVariable(required = false) String error,
+                                 HttpServletRequest request,
                                  Model model) {
 
         if (error != null && !error.isEmpty()) {
@@ -39,7 +41,7 @@ public class CourseController {
 
         List<Course> courses = this.courseService.findAll()
                 .stream()
-                .filter(course -> !this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+                .filter(course -> !this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser())).getPersonalCourses().contains(course))
                 .sorted(Comparator.comparing(course -> course.getYear()))
                 .collect(Collectors.toList());
         model.addAttribute("courses", courses);
@@ -49,7 +51,8 @@ public class CourseController {
 
     @GetMapping("/details/{id}")
     public String detailCoursePage(@PathVariable Integer id,
-                                   Model model) {
+                                   Model model,
+                                   HttpServletRequest request) {
         Course course = this.courseService.findById(id).get();
         List<Comment> commentsForCourse = course.getComments()
                 .stream()
@@ -64,7 +67,7 @@ public class CourseController {
 
         model.addAttribute("course", course);
 
-        if (this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
+        if (this.personalService.getActivePersonal(Integer.parseInt(request.getRemoteUser())).getPersonalCourses().contains(course))
             course.setMyCourse(true);
 
         model.addAttribute("myCourse", course.isMyCourse());
@@ -73,8 +76,9 @@ public class CourseController {
     }
 
     @GetMapping("/filtered")
-    public String getFilteredPage(Model model) {
-        Student currentStudent = this.studentService.findById(191005).get();
+    public String getFilteredPage(Model model,
+                                  HttpServletRequest request) {
+        Student currentStudent = this.studentService.findById(Integer.parseInt(request.getRemoteUser())).get();
         Preference preference = currentStudent.getPreference();
         Program program = currentStudent.getProgram();
 

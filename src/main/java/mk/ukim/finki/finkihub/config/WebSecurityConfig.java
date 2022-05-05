@@ -14,9 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
+    private final CustomIndexPasswordAuthenticationProvider customIndexPasswordAuthenticationProvider;
 
-    public WebSecurityConfig(PasswordEncoder passwordEncoder) {
+    public WebSecurityConfig(PasswordEncoder passwordEncoder, CustomIndexPasswordAuthenticationProvider customIndexPasswordAuthenticationProvider) {
         this.passwordEncoder = passwordEncoder;
+        this.customIndexPasswordAuthenticationProvider = customIndexPasswordAuthenticationProvider;
     }
 
     @Override
@@ -44,14 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("ana.veljanoska")
-                .password(passwordEncoder.encode("av"))
-                .authorities("ROLE_USER")
-                .and()
-                .withUser("admin")
-                .password(passwordEncoder.encode("admin"))
-                .authorities("ROLE_ADMIN");
+        auth.authenticationProvider(customIndexPasswordAuthenticationProvider);
     }
 
 }

@@ -4,6 +4,9 @@ import mk.ukim.finki.finkihub.models.Preference;
 import mk.ukim.finki.finkihub.models.Program;
 import mk.ukim.finki.finkihub.models.Role;
 import mk.ukim.finki.finkihub.models.Student;
+import mk.ukim.finki.finkihub.models.exceptions.InvalidArgumentsException;
+import mk.ukim.finki.finkihub.models.exceptions.PasswordsDoNotMatchException;
+import mk.ukim.finki.finkihub.models.exceptions.UsernameAlreadyExistsException;
 import mk.ukim.finki.finkihub.service.PreferenceService;
 import mk.ukim.finki.finkihub.service.ProgramService;
 import mk.ukim.finki.finkihub.service.StudentService;
@@ -46,7 +49,8 @@ public class RegisterController {
                            @RequestParam String password,
                            @RequestParam String repeat,
                            @RequestParam Integer programId,
-                           @RequestParam Integer preferenceId) {
+                           @RequestParam Integer preferenceId,
+                           @RequestParam Role role) throws PasswordsDoNotMatchException, UsernameAlreadyExistsException, InvalidArgumentsException {
 
         if (this.studentService.findById(Integer.parseInt(index)).isPresent())
             return "redirect:/register?StudentAlreadyExists";
@@ -54,7 +58,7 @@ public class RegisterController {
         if (password.equals(repeat)) {
             Preference preference = this.preferenceService.findById(preferenceId).get();
             Program program = this.programService.findById(programId).get();
-            this.studentService.register(Integer.parseInt(index), name, surname, password, repeat, preference, program, Role.ROLE_USER);
+            this.studentService.register(Integer.parseInt(index), name, surname, password, repeat, preference, program, role);
             return "redirect:/login";
         } else {
             return "redirect:/register?PasswordsDoNotMatch";

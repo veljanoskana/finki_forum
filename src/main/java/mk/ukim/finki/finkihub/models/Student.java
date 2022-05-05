@@ -11,7 +11,7 @@ import java.util.Collections;
 
 @Entity
 @Data
-public class Student {
+public class Student implements UserDetails {
 
     @Id
     private Integer index;
@@ -50,5 +50,35 @@ public class Student {
 
     public int getYear() {
         return ((LocalDateTime.now().getYear()) % 100) - (index / 10000);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(this.role);
+    }
+
+    @Override
+    public String getUsername() {
+        return String.valueOf(this.index);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

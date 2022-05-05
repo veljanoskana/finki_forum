@@ -119,4 +119,10 @@ public class CourseController {
         return "master-template";
     }
 
+    @GetMapping("/access_denied")
+    public String accessDeniedPage(Model model) {
+        model.addAttribute("bodyContent", "access-denied");
+        return "accesss-denied";
+    }
+
 }

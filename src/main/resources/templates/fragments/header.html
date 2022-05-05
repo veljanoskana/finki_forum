@@ -27,10 +27,12 @@
                                 <a class="nav-link mx-2 btn btn-outline-info" th:href="@{/personal}"><i
                                         class="fas fa-heart pe-2"></i>Мои предмети</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2 btn btn-danger text-white" th:href="@{/admin}"><i
-                                        class="fas fa-heart pe-2">Модифицирај</i></a>
-                            </li>
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <li class="nav-item">
+                                    <a class="nav-link mx-2 btn btn-danger text-white" th:href="@{/admin}"><i
+                                            class="fas fa-heart pe-2">Модифицирај</i></a>
+                                </li>
+                            </th:block>
                         </ul>
                     </div>
                 </div>

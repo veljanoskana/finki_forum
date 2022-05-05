@@ -1,7 +1,6 @@
 package mk.ukim.finki.finkihub.web;
 
 import mk.ukim.finki.finkihub.models.Comment;
-import mk.ukim.finki.finkihub.models.Course;
 import mk.ukim.finki.finkihub.models.Student;
 import mk.ukim.finki.finkihub.service.CommentService;
 import mk.ukim.finki.finkihub.service.CourseService;
@@ -26,16 +25,18 @@ public class CommentsController {
     }
 
     @PostMapping("/add")
-    public String saveComment(@RequestParam Integer courseId,
-                              @RequestParam String commentBody) {
-        Comment comment = new Comment(LocalDateTime.now(), commentBody);
+    public String saveComment(HttpServletRequest request) {
+        Comment comment = new Comment(LocalDateTime.now(), request.getParameter("commentBody"));
+        Student student = this.studentService.findById(Integer.parseInt(request.getRemoteUser())).get();
+        comment.setAuthorName(student.getFullName());
         this.commentService.addComment(comment);
-        return "redirect:/courses/details/{courseId}";
+        String id = request.getParameter("courseId");
+        return "redirect:/courses/details/{id}";
     }
 
     @GetMapping("/like/{id}/{course}")
     public String likeComment(@PathVariable Integer id,
-                              @PathVariable Integer course){
+                              @PathVariable Integer course) {
         Comment comment = this.commentService.findById(id);
         this.commentService.likeComment(comment);
         return "redirect:/courses/details/{course}";
@@ -43,7 +44,7 @@ public class CommentsController {
 
     @GetMapping("/dislike/{id}/{course}")
     public String dislikeComment(@PathVariable Integer id,
-                                 @PathVariable Integer course){
+                                 @PathVariable Integer course) {
         Comment comment = this.commentService.findById(id);
         this.commentService.disLikeComment(comment);
         return "redirect:/courses/details/{course}";

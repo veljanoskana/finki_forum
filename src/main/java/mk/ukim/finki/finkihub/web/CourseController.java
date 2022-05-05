@@ -60,8 +60,9 @@ public class CourseController {
             model.addAttribute("noComments", true);
         else {
             model.addAttribute("comments", commentsForCourse);
-            model.addAttribute("course", course);
         }
+
+        model.addAttribute("course", course);
 
         if (this.personalService.getActivePersonal(191005).getPersonalCourses().contains(course))
             course.setMyCourse(true);
@@ -122,7 +123,7 @@ public class CourseController {
     @GetMapping("/access_denied")
     public String accessDeniedPage(Model model) {
         model.addAttribute("bodyContent", "access-denied");
-        return "accesss-denied";
+        return "master-template";
     }
 
 }

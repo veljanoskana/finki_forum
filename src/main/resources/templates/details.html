@@ -1,5 +1,7 @@
 <div class="container my-2 py-2">
-    <h3 class="h3 text-center">Коментари</h3>
+    <h3 class="h3 text-center">Коментари за
+        <th:block th:text="${course.getName()}"></th:block>
+    </h3>
 </div>
 <section style="background-color: #e7effd;">
     <div th:if="${noComments}" class="text-center">
